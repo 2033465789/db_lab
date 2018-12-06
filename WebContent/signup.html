@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+<link rel="stylesheet" href="MY-CSS/static.css">
+<link rel="stylesheet" href="JQuery/jquery.growl.css">
+
+<script type="text/javascript" src="JQuery/jquery.min.js"></script>
+<script type="text/javascript" src="JQuery/jquery.growl.js"></script>
+<script type="text/javascript" src="bootstrap/bootstrap.min.js"></script>
+
+<!-- 页面js文件 -->
+<script type="text/javascript" src="MY-JS/signup.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>注册</title>
+</head>
+<body>
+	<div class="container margin-top-250">
+		<div>
+			<div class="form-group">
+				<label class="sr-only" for="userId">number</label> <input
+					type="text" class="form-control" name="userId" id="userId"
+					placeholder="请输入账户">
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="exampleInputPassword3">Password</label>
+				<input type="password" class="form-control" name="pwd" id="pwd"
+					placeholder="请输入密码">
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="exampleInputPassword3">Password</label>
+				<input type="password" class="form-control" name="rpwd" id="rpwd"
+					placeholder="请输再次入密码">
+			</div>
+			<input class="btn btn-info btn-block" type="button" value="注册"
+				onclick="register()"><br>
+		</div>
+	</div>
+</body>
+</html>

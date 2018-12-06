@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<!--  暂时隐藏的管理员操作模块  -->
+	<div id="admin">
+		<!-- add -->
+		<div id="add" class="hide full-screen">
+			<div class="black-overplay"></div>
+			<div class="white-content row">
+				<form role="form" class="col-md-12">
+					<div class="col-md-12">
+						<div class="form-group">
+							<span class="label label-info">网站名字</span> <input type="text"
+								class="form-control" id="web-name">
+						</div>
+						<div class="form-group">
+							<span class="label label-info">网站描述</span> <input type="text"
+								class="form-control" id="web-desc">
+						</div>
+						<div class="form-group">
+							<span class="label label-info">网站url</span> <input type="text"
+								class="form-control" id="web-url">
+						</div>
+
+						<div class="form-group">
+							<span class="label label-info">网站图片</span> <input type="file"
+								class="form-control" id="web-img"
+								accept="image/gif,image/jpeg,image/jpg,image/png">
+						</div>
+					</div>
+
+					<div class="form-group col-md-12">
+						<input type="button" class="btn btn-success col-md-6" value="确认"
+							onclick="addWebsite()"> <input type="button"
+							class="btn btn-warning col-md-6" value="取消"
+							onclick="cancel('add')">
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<!-- delete -->
+		<div id="delete" class="hide full-screen">
+			<div class="black-overplay"></div>
+			<div class="white-content col-md-12">
+				<form role="form">
+					<div class="input-group form-group margin-top-bottom-10px">
+						<span class="input-group-addon">网站名称</span> <input type="text"
+							class="form-control" id="delete-website-name">
+					</div>
+
+					<div class="form-group">
+						<input type="button" class="btn btn-success col-md-6" value="确认"
+							onclick="deleteWebsite()"> <input type="button"
+							class="btn btn-warning col-md-6" value="取消"
+							onclick="cancel('delete')">
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
