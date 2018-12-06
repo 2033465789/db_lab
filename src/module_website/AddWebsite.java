@@ -33,11 +33,12 @@ public class AddWebsite extends HttpServlet {
 		super();
 	}
 
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// 获取各种工具
 		FileUploadUtil fileUploadUtil = new FileUploadUtil(request, response);
-		StringUtil stringUtil = StringUtil.getStringTool(request.getServletContext());
+		StringUtil stringUtil = StringUtil
+				.getStringTool(request.getServletContext());
 		RequestUtil requestUtil = RequestUtil.getRequestTool(request);
 		List<WebInfo> webInfos = null;
 		WebService service = null;
@@ -45,18 +46,21 @@ public class AddWebsite extends HttpServlet {
 			webInfos = StaticDataUtil.getWebInfo();
 			User user = requestUtil.getUser();
 			if (user == null) {
-				request.getRequestDispatcher("LogIn").forward(request, response);
+				request.getRequestDispatcher("LogIn").forward(request,
+						response);
 				return;
 			}
 			String filePath = stringUtil.getWebImgPath();
-			HashMap<String, String> map = fileUploadUtil.dealUploadFile(filePath, null);
+			HashMap<String, String> map = fileUploadUtil
+					.dealUploadFile(filePath, null);
 			String webName = map.get("webName");
 			String webDesc = map.get("webDesc");
 			String aimURL = map.get("webURL");
 			String imgURL = "webImgs/" + map.get("fileName");
 			service = new WebService();
 			WebInfo webinfo = new WebInfo(0, aimURL, imgURL, webName, webDesc);
-			if (service.addWebInfo(webinfo) && webInfos.add(webinfo)) {
+			if (service.addWebInfo(webinfo, user.getUid())
+					&& webInfos.add(webinfo)) {
 				response.getOutputStream().write("添加成功".getBytes("utf-8"));
 			} else {
 				response.getOutputStream().write("添加失败".getBytes("utf-8"));

@@ -67,7 +67,7 @@
 			<span>评论数：${comments.size()}</span>
 			<table class="table table-hover col-md-12 col-sm-12">
 				<c:forEach var="comment" items="${comments}">
-					<tr class="comment-item" id="${comment.id}">
+					<tr class="comment-item" id="${comment.cid}">
 						<td class="comment-user-info">
 							<div>
 								<span class="margin-right-10px"><b>${comment.uid}</b></span> <span>
@@ -78,13 +78,11 @@
 				</c:forEach>
 			</table>
 		</div>
-
 		<!-- 发表评论 -->
 		<div class="col-md-12 col-sm-12">
-			<textarea rows="4" class="margin-top-bottom-10px"
-				id="comment-content" style="width: 100%"></textarea>
-			<button type="button" class="col-md-12 col-sm-12 btn btn-success"
-				style="width: 100%" id="make-comment">发表评论</button>
+			<textarea rows="4" class="margin-top-bottom-10px" id="comment-content" style="width: 100%"></textarea>
+			<button type="button" class="col-md-12 col-sm-12 btn btn-success" style="width: 100%"
+				id="make-comment">发表评论</button>
 		</div>
 	</div>
 </body>

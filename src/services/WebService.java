@@ -7,35 +7,28 @@ import daos.WebDao;
 import exceptions.DBConnctionException;
 import javabeans.WebInfo;
 
-public class WebService extends BaseService
-{
+public class WebService extends BaseService {
 	private WebDao dao;
 
-	public WebService() throws DBConnctionException
-	{
+	public WebService() throws DBConnctionException {
 		dao = new WebDao();
 	}
 
-	public ResultSet getWebInfo()
-	{
+	public ResultSet getWebInfo() {
 		return dao.getWebInfo();
 	}
 
-	public boolean addWebInfo(WebInfo webinfo)
-	{
-		return dao.addWebInfo(webinfo);
+	public boolean addWebInfo(WebInfo webinfo, String uid) {
+		return dao.addWebInfo(webinfo, uid);
 	}
 
-	public boolean deleteWebInfo(WebInfo webinfo)
-	{
-		return dao.deleteWebInfo(webinfo);
+	public boolean deleteWebInfo(WebInfo webinfo, String uid) {
+		return dao.deleteWebInfo(webinfo, uid);
 	}
 
 	@Override
-	public boolean close()
-	{
+	public boolean close() {
 		return dao.close();
 	}
-	
-	
+
 }

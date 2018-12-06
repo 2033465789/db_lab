@@ -64,7 +64,7 @@ public class AllFind extends HttpServlet {
 			throws SQLException {
 		ResultSet rset = service.getAllUserItems(requestUtil.getUser());
 		while (rset.next()) {
-			Good item = new Good(rset.getInt("id"), rset.getString("finderId"), rset.getString("numberInfo"),
+			Good item = new Good(rset.getInt("lid"), rset.getString("uid"), rset.getString("numberInfo"),
 					rset.getString("losterName"), rset.getString("goodDesc"), rset.getString("foundAddr"),
 					rset.getString("finderName"), rset.getString("finderPhone"), rset.getString("finderQQorWX"),
 					rset.getString("imagePath"));

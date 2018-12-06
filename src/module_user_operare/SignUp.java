@@ -2,7 +2,6 @@ package module_user_operare;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -54,19 +53,11 @@ public class SignUp extends HttpServlet
 			}
 			if (userId != null && pwd != null && userId.length() > 0 && pwd.length() > 5)
 			{
-				if (service.insertUser(userId, pwd))
+				User user =  new User(userId,pwd,userId);
+				if (service.insertUser(user))
 				{
 					HttpSession session = request.getSession();
-					ResultSet set = service.getUserInfo(userId);
-					User user = null;
-					if (set.next())
-					{
-						user = new User(set.getString(1), set.getString(2), set.getString(3), set.getString(4),
-								set.getString(5), set.getInt(6));
-					} else
-					{
-						user = new User(userId, null, null, null, null, 0);
-					}
+					user.setPwd(null);
 					session.setAttribute("user", user);
 					os.write("success".getBytes("utf-8"));
 				} else

@@ -4,42 +4,55 @@ import utils.StaticDataUtil;
 
 public class User
 {
-
-	private String userId, cardBalance;
-	private int userPermission;
-	private DormitoryInfo userDormInfo;
-
+	private int userPermission;//权限等级
+	private String uid; 	 //用户名 
+	private String pwd ;     	 //密码
+	private String  nickname ; 	 //昵称
+	private String  registerTime;    //注册时间
+	
 	public User()
 	{
 	}
 
-	public User(String userId, String dormAddr, String dormWhich, String dormTag, String cardBalance, int permission)
-	{
+	public User(String uid, String pwd, String nickname) {
 		super();
-		setUserDormInfo(new DormitoryInfo(dormAddr, dormWhich, dormTag));
-		setUserId(userId);
-		setCardBalance(cardBalance);
-		setUserPermission(permission);
+		this.uid = uid;
+		this.pwd = pwd;
+		this.nickname = nickname;
+	}
+	public User(String uid, String pwd, String nickname,int permission) {
+		super();
+		this.uid = uid;
+		this.pwd = pwd;
+		this.userPermission = permission;
+		this.nickname = nickname;
+	}
+	@Override
+	public String toString() {
+		return "User [userPermission=" + userPermission + ", uid=" + uid
+				+ ", pwd=" + pwd + ", nickname=" + nickname  + ", registerTime=" + registerTime + "]";
 	}
 
-	public String toString()
-	{
-		return "User [userId=" + userId + ", cardBalance=" + cardBalance + ", userDormInfo=" + userDormInfo + "]";
-	}
 
-	public int hashCode()
-	{
+
+	@Override
+	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cardBalance == null) ? 0 : cardBalance.hashCode());
-		result = prime * result + ((userDormInfo == null) ? 0 : userDormInfo.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result
+				+ ((nickname == null) ? 0 : nickname.hashCode());
+		result = prime * result + ((pwd == null) ? 0 : pwd.hashCode());
+		result = prime * result
+				+ ((registerTime == null) ? 0 : registerTime.hashCode());
+		result = prime * result + ((uid == null) ? 0 : uid.hashCode());
+		result = prime * result + userPermission;
 		return result;
 	}
 
-	public boolean equals(Object obj)
-	{
-		// 学号相同即认为为同一学生
+
+
+	@Override
+	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
@@ -47,54 +60,33 @@ public class User
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (userId == null)
-		{
-			if (other.userId != null)
+		if (nickname == null) {
+			if (other.nickname != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!nickname.equals(other.nickname))
+			return false;
+		if (pwd == null) {
+			if (other.pwd != null)
+				return false;
+		} else if (!pwd.equals(other.pwd))
+			return false;
+		if (registerTime == null) {
+			if (other.registerTime != null)
+				return false;
+		} else if (!registerTime.equals(other.registerTime))
+			return false;
+		if (uid == null) {
+			if (other.uid != null)
+				return false;
+		} else if (!uid.equals(other.uid))
+			return false;
+		if (userPermission != other.userPermission)
 			return false;
 		return true;
 	}
 
-	public String getUserId()
-	{
-		return userId;
-	}
-
-	public void setUserId(String userId)
-	{
-		this.userId = userId;
-	}
-
-	public String getCardBalance()
-	{
-		return cardBalance;
-	}
-
-	public void setCardBalance(String cardBalance)
-	{
-		this.cardBalance = cardBalance;
-	}
-
-	public DormitoryInfo getUserDormInfo()
-	{
-		return userDormInfo;
-	}
-
-	public void setUserDormInfo(DormitoryInfo userDormInfo)
-	{
-		this.userDormInfo = userDormInfo;
-	}
-
-	public int getUserPermission()
-	{
+	public int getUserPermission() {
 		return userPermission;
-	}
-
-	// 不对外开放设置用户权限等级
-	private void setUserPermission(int permission)
-	{
-		userPermission = permission;
 	}
 
 	public boolean hasBasePermission()
@@ -111,4 +103,37 @@ public class User
 	{
 		return getUserPermission() == StaticDataUtil.SUPER_ADMIN;
 	}
+	
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
+	}
+
+	public String getPwd() {
+		return pwd;
+	}
+
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
+	}
+
+	public String getNickname() {
+		return nickname;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public String getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(String registerTime) {
+		this.registerTime = registerTime;
+	}
+
 }

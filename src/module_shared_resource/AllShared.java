@@ -86,8 +86,8 @@ public class AllShared extends HttpServlet
 		ResultSet rset = service.getAllResourceByUser(requestUtil.getUser());
 		while (rset.next())
 		{
-			SharedResource item = new SharedResource(rset.getInt("id"), rset.getString("fileName"),
-					rset.getString("uploadUser"), rset.getString("uploadTime"), rset.getString("filePath"),
+			SharedResource item = new SharedResource(rset.getInt("sid"), rset.getString("fileName"),
+					rset.getString("uid"), rset.getString("uploadTime"), rset.getString("filePath"),
 					rset.getString("fileType"), rset.getString("fileDesc"));
 
 			allShared.add(item);

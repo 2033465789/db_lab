@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import base.BaseService;
 import daos.CommentDao;
 import exceptions.DBConnctionException;
-import javabeans.Comment;
+import javabeans.CommentFile;
 
 public class CommentService extends BaseService
 {
@@ -17,22 +17,22 @@ public class CommentService extends BaseService
 		dao = new CommentDao();
 	}
 
-	public LinkedList<Comment> getItemById(String id)
+	public LinkedList<CommentFile> getItemById(String id)
 	{
 		return dao.getItemById(id);
 	}
 
-	public LinkedList<Comment> getItemByUserId(String id)
+	public LinkedList<CommentFile> getItemByUserId(String id)
 	{
 		return dao.getItemByUserId(id);
 	}
 
-	public LinkedList<Comment> getItemByFileId(String id)
+	public LinkedList<CommentFile> getItemByFileId(String id)
 	{
 		return dao.getItemByFileId(id);
 	}
 
-	public boolean InsertCacheItems(ArrayList<Comment> cacheList)
+	public boolean InsertCacheItems(ArrayList<CommentFile> cacheList)
 	{
 		return dao.InsertCacheItems(cacheList);
 	}

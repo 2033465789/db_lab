@@ -3,7 +3,7 @@
 <c3p0-config>
 	<default-config>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
-		<property name="jdbcUrl">jdbc:mysql://localhost:3306/webdb?useSSL=false</property>
+		<property name="jdbcUrl">jdbc:mysql://localhost:3306/db_lab?useSSL=false</property>
 		<property name="user">root</property>
 		<!--<property name="password">962464RFCrfc!</property> -->
 		<property name="password">962464</property>

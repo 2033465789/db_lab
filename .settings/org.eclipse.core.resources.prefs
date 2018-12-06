@@ -1,4 +1,5 @@
 eclipse.preferences.version=1
+encoding//WebContent/pageModules/header.jsp=UTF-8
 encoding//WebContent/upload_resource.jsp=UTF-8
 encoding//src/module_lost_found/Finder.java=UTF-8
 encoding//src/module_website/DeleteWebsite.java=UTF-8

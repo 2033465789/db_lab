@@ -27,29 +27,28 @@ public class Website extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// 返回网站信息
 		try {
 			request.setAttribute("webInfos", StaticDataUtil.getWebInfo());
 		} catch (DBConnctionException e) {
 			request.setAttribute("exception", e);
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.getRequestDispatcher("error.jsp").forward(request,
+					response);
 			e.printStackTrace();
 		}
 		request.getRequestDispatcher("websites.jsp").forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

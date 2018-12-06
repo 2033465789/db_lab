@@ -1,0 +1,72 @@
+{% extends 'basic.html' %}
+{% load static %}
+
+{% block title%} 实用工具 {% endblock %}
+
+{% block alert %}
+<div class="alert alert-info text-center mb-0 rounded-0 alert-dismissible fade show font-weight-bold">
+    你可以自由的使用这些工具
+    <button class="close" data-dismiss="alert">&times;</button>
+</div>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .mynav {
+            background: url("{% static "resource/index.jpg" %}");
+            background-size: inherit;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="mynav text-dark text-center py-5">
+        <h2 class="text-light display-3 mb-3 ">实用工具</h2>
+    </div>
+    <section class="py-5">
+        <div class="container">
+            <div class="mb-5 row">
+                <div class="col-md-9">
+                    <h3>Jupyter</h3>
+                    <p>Jupyter Notebook（此前被称为 IPython notebook）是一个交互式笔记本，支持运行 40 多种编程语言。</p>
+                </div>
+                <div class="col-md-3">
+                    <a href="http://111.230.224.98:8000"><img src="/static/resource/jupyter.jpg" class="w-100"></a>
+                </div>
+            </div>
+            <div class="mb-5 row">
+                <div class="col-md-9 order-md-2">
+                    <h3>文件管理</h3>
+                    <p>H5ai是一款功能强大 php 文件目录列表程序，由德国开发者 Lars Jung 主导开发，它提供多种文件目录列表呈现方式，支持多种主流 Web 服务器，例如
+                        Nginx、Apache、Cherokee、Lighttpd 等，支持多国语言，可以使用本程序在线预览文本、图片、音频、视频等。</p>
+                </div>
+                <div class="col-md-3 order-md-1">
+                    <a href="http://111.230.224.98:666"><img src="/static/resource/file.jpg" class="w-100"></a>
+                </div>
+            </div>
+            <div class="mb-5 row">
+                <div class="col-md-9">
+                    <h3>文件下载</h3>
+                    <p>Aria2是一款免费开源跨平台且不限速的多线程下载软件，Aria2的优点是速度快、体积小、资源占用少；支持 HTTP / FTP / BT / Magnet 磁力链接等类型的文件下载</p>
+                </div>
+                <div class="col-md-3">
+                    <a href="http://111.230.224.98:8888"><img src="/static/resource/download.jpg"
+                                                              class="w-100"></a>
+                </div>
+            </div>
+            <div class="mb-5 row">
+                <div class="col-md-9 order-md-2">
+                    <h3>BT下载</h3>
+                    <p>这是一款由Go编写的程序，支持种子/磁力下载，支持在线搜索直接加入下载，作者计划加入在线播放以及前后端分离的功能。</p>
+                </div>
+                <div class="col-md-3 order-md-1">
+                    <a href="http://111.230.224.98:3000"><img src="../static/resource/torrent.jpg" class="w-100"></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+
+

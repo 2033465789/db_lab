@@ -30,7 +30,8 @@ public class StaticDataUtil {
 		ResultSet rset = new WebService().getWebInfo();
 		try {
 			while (rset.next()) {
-				webInfos.add(new WebInfo(rset.getInt(1), rset.getString(2), rset.getString(3), rset.getString(4),
+				webInfos.add(new WebInfo(rset.getInt(1), rset.getString(2),
+						rset.getString(3), rset.getString(4),
 						rset.getString(5)));
 			}
 		} catch (SQLException e) {

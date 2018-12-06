@@ -10,54 +10,42 @@ import exceptions.DBConnctionException;
 import javabeans.SharedResource;
 import javabeans.User;
 
-public class SharedDao extends BaseDao
-{
-	public SharedDao() throws DBConnctionException
-	{
+public class SharedDao extends BaseDao {
+	public SharedDao() throws DBConnctionException {
 		super();
 	}
 
-	public ResultSet getAllResourceByUser(User user)
-	{
-		String sql = "select * from shared where uploadUser=?";
-		try
-		{
+	public ResultSet getAllResourceByUser(User user) {
+		String sql = "select * from shared where uid=?";
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, user.getUserId());
+			pst.setString(1, user.getUid());
 			return pst.executeQuery();
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public boolean deleteItemById(int id)
-	{
-		String sql = "delete from shared where id=?";
-		try
-		{
+	public boolean deleteItemById(int id) {
+		String sql = "delete from shared where sid=?";
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setInt(1, id);
 			return pst.executeUpdate() == 1;
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public boolean InsertCacheItmes(ArrayList<SharedResource> sharedCache)
-	{
+	public boolean InsertCacheItmes(ArrayList<SharedResource> sharedCache) {
 		int res = 0;
-		try
-		{
-			String sql = "INSERT INTO shared(fileName,uploadUser,uploadTime,filePath,fileType,fileDesc) VALUES(?,?,?,?,?,?)";
-
+		try {
+			String sql = "INSERT INTO shared(fileName,uid,uploadTime,filePath,fileType,fileDesc) VALUES(?,?,?,?,?,?)";
 			// 取消自动提交
 			conn.setAutoCommit(false);
-			for (SharedResource shared : sharedCache)
-			{
+			for (SharedResource shared : sharedCache) {
 				PreparedStatement pst = conn.prepareStatement(sql);
 				pst.setString(1, shared.getFileName());
 				pst.setString(2, shared.getUploadUser());
@@ -69,17 +57,13 @@ public class SharedDao extends BaseDao
 			}
 			// 手动提交
 			conn.commit();
-
 			// 还原自动提交
 			conn.setAutoCommit(true);
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			// 出错则回滚
-			try
-			{
+			try {
 				conn.rollback();
-			} catch (SQLException e1)
-			{
+			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
@@ -87,39 +71,31 @@ public class SharedDao extends BaseDao
 		return res == sharedCache.size();
 	}
 
-	public SharedResource getItemById(String id)
-	{
-		String sql = "select * from shared where id = ?";
+	public SharedResource getItemById(String id) {
+		String sql = "select * from shared where sid = ?";
 		SharedResource resource = null;
-		try
-		{
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setInt(1, (int) Long.parseLong(id));
 			ResultSet rs = pst.executeQuery();
-
-			if (rs.next())
-			{
-				resource = new SharedResource(rs.getInt("id"), rs.getString("fileName"), rs.getString("uploadUser"),
-						rs.getString("uploadTime"), rs.getString("filePath"), rs.getString("fileType"),
-						rs.getString("fileDesc"));
+			if (rs.next()) {
+				resource = new SharedResource(rs.getInt("sid"),
+						rs.getString("fileName"), rs.getString("uid"),
+						rs.getString("uploadTime"), rs.getString("filePath"),
+						rs.getString("fileType"), rs.getString("fileDesc"));
 			}
-
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return resource;
 	}
 
-	public ResultSet getAllResource()
-	{
+	public ResultSet getAllResource() {
 		String sql = "select * from shared";
-		try
-		{
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			return pst.executeQuery();
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;

@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import exceptions.DBConnctionException;
 import exceptions.MyException;
+import javabeans.User;
 import javabeans.WebInfo;
 import services.WebService;
 import utils.InputCheckUtil;
+import utils.RequestUtil;
 import utils.StaticDataUtil;
 import utils.StringUtil;
 
@@ -33,25 +35,34 @@ public class DeleteWebsite extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		String webName = request.getParameter("webName");
 		try {
 			if (InputCheckUtil.isOK(webName)) {
 				try {
 					exist = false;
-					if (deleteWeb(webName)) {
-						response.getOutputStream().write("success".getBytes("utf-8"));
+					User user = RequestUtil.getRequestTool(request).getUser();
+					if (user == null) {
+						response.getOutputStream()
+								.write("未登录".getBytes("utf-8"));
+						return;
+					}
+					if (deleteWeb(webName, user.getUid())) {
+						response.getOutputStream()
+								.write("success".getBytes("utf-8"));
 					} else if (exist == false) {
-						response.getOutputStream().write("不存在该网址信息".getBytes("utf-8"));
+						response.getOutputStream()
+								.write("不存在该网址信息".getBytes("utf-8"));
 					} else {
-						response.getOutputStream().write("服务器出错".getBytes("utf-8"));
+						response.getOutputStream()
+								.write("服务器出错".getBytes("utf-8"));
 					}
 				} catch (MyException e) {
-					response.getOutputStream().write(("删除失败:" + e.getErrorInfo()).getBytes("utf-8"));
+					response.getOutputStream().write(
+							("删除失败:" + e.getErrorInfo()).getBytes("utf-8"));
 					e.printStackTrace();
 				} catch (DBConnctionException e) {
 					response.getWriter().append("无法连接数据库");
@@ -66,27 +77,30 @@ public class DeleteWebsite extends HttpServlet {
 		}
 	}
 
-	private boolean deleteWeb(String webName) throws MyException, DBConnctionException {
+	private boolean deleteWeb(String webName, String uid)
+			throws MyException, DBConnctionException {
 		List<WebInfo> webInfos = StaticDataUtil.getWebInfo();
 		for (WebInfo webinfo : webInfos) {
 			if (webinfo.getWebName().equals(webName)) {
 				exist = true;
 				// 1. 从缓存中移除
 				webInfos.remove(webinfo);
-
 				// 2. 移除图片，移动图片至指定文件夹
 				String url = webinfo.getImgURL();
 				// 获取图片名字
 				String imgName = url.substring(url.indexOf("/") + 1);
 				// 获取图片file对象
-				StringUtil stringTool = StringUtil.getStringTool(getServletContext());
+				StringUtil stringTool = StringUtil
+						.getStringTool(getServletContext());
 				// 图片源文件
 				File imgSrcFile = new File(stringTool.getWebImgPath(), imgName);
-				File deletedDirectory = new File(stringTool.getDeletedDirectory());
+				File deletedDirectory = new File(
+						stringTool.getDeletedDirectory());
 				if (!deletedDirectory.exists()) {
 					deletedDirectory.mkdirs();
 				}
-				String deletedName = stringTool.getCurrentTime("yyyyMMddHHmmss") + "_" + imgSrcFile.getName();
+				String deletedName = stringTool.getCurrentTime("yyyyMMddHHmmss")
+						+ "_" + imgSrcFile.getName();
 				// 图片移除到的文件
 				File deletedFile = new File(deletedDirectory, deletedName);
 				imgSrcFile.renameTo(deletedFile);
@@ -94,7 +108,7 @@ public class DeleteWebsite extends HttpServlet {
 				WebService service = null;
 				try {
 					service = new WebService();
-					if (service.deleteWebInfo(webinfo)) {
+					if (service.deleteWebInfo(webinfo, uid)) {
 						return true;
 					} else {
 						// 如果删除数据库失败，则回退缓存内容和图片
@@ -116,8 +130,8 @@ public class DeleteWebsite extends HttpServlet {
 		return false;
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
 

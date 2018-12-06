@@ -28,10 +28,11 @@ public class Finder extends HttpServlet {
 		super();
 	}
 
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		FileUploadUtil fileUploadTool = new FileUploadUtil(request, response);
-		StringUtil stringTool = StringUtil.getStringTool(request.getServletContext());
+		StringUtil stringTool = StringUtil
+				.getStringTool(request.getServletContext());
 		RequestUtil rqTool = new RequestUtil(request);
 		User user = rqTool.getUser();
 		try {
@@ -40,11 +41,11 @@ public class Finder extends HttpServlet {
 				return;
 			}
 
-			String newFileName = user.getUserId() + "-" + stringTool.getCurrentTime("yyyyMMddHHmmssSSS");
+			String newFileName = user.getUid() + "-"
+					+ stringTool.getCurrentTime("yyyyMMddHHmmssSSS");
 			String filePath = stringTool.getImagespath();
-
-			HashMap<String, String> map = fileUploadTool.dealUploadFile(filePath, newFileName);
-
+			HashMap<String, String> map = fileUploadTool
+					.dealUploadFile(filePath, newFileName);
 			String numberInfo = map.get("numberInfo");
 			String losterName = map.get("losterName");
 			String goodDesc = map.get("goodDesc");
@@ -53,11 +54,11 @@ public class Finder extends HttpServlet {
 			String finderPhone = map.get("finderPhone");
 			String finderQQorWX = map.get("finderQQorWX");
 			String callPath = "images/" + newFileName;
-
 			CacheUtil ct = CacheUtil.getCacheTool();
 			int id = CacheUtil.getNewItemId(ct.getGoodsCache(), "lost");
-			if (ct.addItemToGoodsCache(new Good(id, user.getUserId(), numberInfo, losterName, goodDesc, foundDddr,
-					finderName, finderPhone, finderQQorWX, callPath))) {
+			if (ct.addItemToGoodsCache(new Good(id, user.getUid(), numberInfo,
+					losterName, goodDesc, foundDddr, finderName, finderPhone,
+					finderQQorWX, callPath))) {
 				response.getOutputStream().write("上传成功".getBytes("utf-8"));
 			} else {
 				response.getOutputStream().write("物品已经被提交".getBytes("utf-8"));
@@ -66,10 +67,12 @@ public class Finder extends HttpServlet {
 		} catch (FileUploadException e1) {
 			e1.printStackTrace();
 		} catch (MyException e) {
-			response.getOutputStream().write(e.getErrorInfo().getBytes("utf-8"));
+			response.getOutputStream()
+					.write(e.getErrorInfo().getBytes("utf-8"));
 			e.printStackTrace();
 		} catch (DBConnctionException e) {
-			response.getOutputStream().write(e.getErrorInfo().getBytes("utf-8"));
+			response.getOutputStream()
+					.write(e.getErrorInfo().getBytes("utf-8"));
 			e.printStackTrace();
 		}
 	}

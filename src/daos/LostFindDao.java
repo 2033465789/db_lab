@@ -10,106 +10,69 @@ import exceptions.DBConnctionException;
 import javabeans.Good;
 import javabeans.User;
 
-public class LostFindDao extends BaseDao
-{
-	public LostFindDao() throws DBConnctionException
-	{
+public class LostFindDao extends BaseDao {
+	public LostFindDao() throws DBConnctionException {
 		super();
 	}
 
-	public ResultSet getAllItems()
-	{
+	public ResultSet getAllItems() {
 		String sql = "select * from lost";
-		try
-		{
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			return pst.executeQuery();
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public ResultSet getAllUserItems(User user)
-	{
-		String sql = "select * from lost where finderId=?";
-		try
-		{
+	public ResultSet getAllUserItems(User user) {
+		String sql = "select * from lost where uid=?";
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, user.getUserId());
+			pst.setString(1, user.getUid());
 			return pst.executeQuery();
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	public boolean deleteItemById(int id)
-	{
-		String sql = "delete from lost where id=?";
-		try
-		{
+	public boolean deleteItemById(long id) {
+		String sql = "delete from lost where lid=?";
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setInt(1, id);
+			pst.setLong(1, id);
 			return pst.executeUpdate() == 1;
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public boolean findLoster(int id)
-	{
-		String sql = "select * from lost where id=?";
-		try
-		{
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setInt(1, id);
-			ResultSet rset = pst.executeQuery();
-			if (rset.next())
-			{
-				sql = "insert into foundloster(finderId,goodDesc,imagePath) values(?,?,?)";
-				pst = conn.prepareStatement(sql);
-				pst.setString(1, rset.getString("finderId"));
-				pst.setString(2, rset.getString("goodDesc"));
-				pst.setString(3, rset.getString("imagePath"));
-				return pst.executeUpdate() == 1 && deleteItemById(id);
-			}
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return false;
+	public boolean findLoster(long id) {
+		return deleteItemById(id);
 	}
 
-	public ResultSet getAllItemsOrderByDesc()
-	{
-		String sql = "select * from lost order by id desc";
-		try
-		{
+	public ResultSet getAllItemsOrderByDesc() {
+		String sql = "select * from lost order by lid desc";
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			return pst.executeQuery();
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 
 	// 插入多条缓存记录
-	public boolean InsertCacheItems(ArrayList<Good> insertCache)
-	{
+	public boolean InsertCacheItems(ArrayList<Good> insertCache) {
 		int res = 0;
-		try
-		{
-			String sql = "INSERT INTO lost(finderId,numberInfo,losterName,goodDesc,foundAddr,finderName,finderPhone,finderQQorWX,ImagePath) VALUES(?,?,?,?,?,?,?,?,?)";
+		try {
+			String sql = "INSERT INTO lost(uid,numberInfo,losterName,goodDesc,foundAddr,finderName,finderPhone,finderQQorWX,ImagePath) VALUES(?,?,?,?,?,?,?,?,?)";
 			// 取消自动提交
 			conn.setAutoCommit(false);
-			for (Good good : insertCache)
-			{
+			for (Good good : insertCache) {
 				PreparedStatement pst = conn.prepareStatement(sql);
 				pst.setString(1, good.getFinderId());
 				pst.setString(2, good.getNumberInfo());
@@ -126,19 +89,15 @@ public class LostFindDao extends BaseDao
 			conn.commit();
 			// 还原自动提交
 			conn.setAutoCommit(true);
-		} catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			// 出错则回滚
-			try
-			{
+			try {
 				conn.rollback();
-			} catch (SQLException e1)
-			{
+			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
 			e.printStackTrace();
 		}
 		return res == insertCache.size();
 	}
-
 }

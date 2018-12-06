@@ -6,114 +6,73 @@ import java.sql.SQLException;
 
 import base.BaseDao;
 import exceptions.DBConnctionException;
-import javabeans.DormitoryInfo;
 import javabeans.User;
+import utils.StaticDataUtil;
 
-public class UserDao extends BaseDao
-{
-	public UserDao() throws DBConnctionException
-	{
+public class UserDao extends BaseDao {
+	public UserDao() throws DBConnctionException {
 		super();
 	}
 
-	public boolean containUser(String id, String pwd) throws Exception
-	{
-		String sql = "select * from users where id = ? and pwd = ?";
-		PreparedStatement pst = conn.prepareStatement(sql);
-		pst.setString(1, id);
-		pst.setString(2, pwd);
-		return pst.executeQuery().next();
-	}
-
-	public boolean idExisted(String id)
-	{
-		String sql = "select * from users where id = ?";
-		try
-		{
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, id);
-			ResultSet res = pst.executeQuery();
-			return res != null && res.next();
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	public boolean insertUser(String userId, String pwd)
-	{
-		String sql = "insert into users(id,pwd) values(?,?)";
-		try
-		{
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, userId);
+	public boolean containUser(String uid, String pwd) {
+		String sql = "select count(*) from user where uid = ? and pwd = ?";
+		PreparedStatement pst;
+		try {
+			pst = conn.prepareStatement(sql);
+			pst.setString(1, uid);
 			pst.setString(2, pwd);
-			boolean users = pst.executeUpdate() == 1;
-			pst.close();
-			boolean userinfo = false;
-			if (users)
-				userinfo = insertUserInfo(new User(userId, null, null, null, "500", 1));
-			return (users && userinfo);
-		} catch (SQLException e)
-		{
+			ResultSet res = pst.executeQuery();
+			res.next();
+			return res.getInt(1) == 1;
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public ResultSet getUserInfo(String userId)
-	{
-		String sql = "select * from userinfo where userId=?";
-		ResultSet set = null;
-		try
-		{
+	public boolean idExisted(String uid) {
+		String sql = "select * from user where uid = ?";
+		try {
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, uid);
+			ResultSet res = pst.executeQuery();
+			return res.next();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean insertUser(User user) {
+//		 uid varchar(20), 	 #用户名 
+//         pwd varchar(20) not null,      	 #密码
+//         nickname varchar(20) not null, 	 #昵称
+//         permission varchar(20) not null,   #权限等级
+//         registerTime datetime not null,     #注册时间
+		String sql = "insert into user(uid,pwd,nickname,permission,registerTime) values(?,?,?,?,now())";
+		try {
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, user.getUid());
+			pst.setString(2, user.getPwd());
+			pst.setString(3, user.getNickname());
+			pst.setInt(4, StaticDataUtil.USER);
+			return pst.executeUpdate() == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public ResultSet getUserInfo(String userId) {
+		String sql = "select * from user where uid = ?";
+		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
 			pst.setString(1, userId);
-			set = pst.executeQuery();
-		} catch (SQLException e)
-		{
+			return pst.executeQuery();
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return set;
+		return null;
 	}
 
-	public boolean AlterDormtoryInfo(String userId, DormitoryInfo dormInfo)
-	{
-		String sql = "update userinfo set userDormAddr=?,userDormWhich=?,userDormTag=? where userId = " + userId;
-		try
-		{
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, dormInfo.getDormAddr());
-			pst.setString(2, dormInfo.getDormWhich());
-			pst.setString(3, dormInfo.getDormTag());
-			return pst.executeUpdate() == 1;
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return false;
-	}
-
-	public boolean insertUserInfo(User user)
-	{
-		String sql = "insert into userinfo(userId,userDormAddr,userDormWhich,userDormTag,cardBalance,userPermission) values(?,?,?,?,?,?)";
-		DormitoryInfo dormInfo = user.getUserDormInfo();
-		try
-		{
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setString(1, user.getUserId());
-			pst.setString(2, dormInfo.getDormAddr());
-			pst.setString(3, dormInfo.getDormWhich());
-			pst.setString(4, dormInfo.getDormTag());
-			pst.setString(5, user.getCardBalance());
-			pst.setInt(6, user.getUserPermission());
-			return pst.executeUpdate() == 1;
-		} catch (SQLException e)
-		{
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
 }
