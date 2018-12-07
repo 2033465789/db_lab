@@ -7,12 +7,14 @@ public class CommentFile {
 		super();
 	}
 
-	public CommentFile(long cid, String uid, long sid, String content) {
+	public CommentFile(long cid, String uid, long sid, String content,
+			String createTime) {
 		super();
 		this.cid = cid;
 		this.uid = uid;
 		this.sid = sid;
 		this.content = content;
+		this.createTime = createTime;
 	}
 
 	@Override

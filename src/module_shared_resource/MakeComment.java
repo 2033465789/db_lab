@@ -50,7 +50,7 @@ public class MakeComment extends HttpServlet {
 				return;
 			}
 			CommentFile comment = new CommentFile(0, user.getUid(),
-					Long.parseLong(fid), content);
+					Long.parseLong(fid), content, null);
 			if (CacheUtil.getCacheTool().addItemToCommentCache(comment)) {
 				response.getWriter().append("success").flush();
 			} else {

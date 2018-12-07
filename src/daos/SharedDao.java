@@ -107,8 +107,8 @@ public class SharedDao extends BaseDao {
 		long curpage = Long.parseLong(page)-1;
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setLong(1,  curpage* StaticDataUtil.PAGE_SIZE);
-			pst.setLong(2, StaticDataUtil.PAGE_SIZE);
+			pst.setLong(1,  curpage* StaticDataUtil.PAGE_FILE_SIZE);
+			pst.setLong(2, StaticDataUtil.PAGE_FILE_SIZE);
 			return pst.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();

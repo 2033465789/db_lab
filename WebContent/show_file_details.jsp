@@ -64,7 +64,7 @@
 		</div>
 		<!-- 评论面板 -->
 		<div id="comments-panel" class="col-md-12 col-sm-12">
-			<span>评论数：${comments.size()}</span>
+			<span>评论数：${itemCount}</span>
 			<table class="table table-hover col-md-12 col-sm-12">
 				<c:forEach var="comment" items="${comments}">
 					<tr class="comment-item" id="${comment.cid}">
@@ -77,6 +77,26 @@
 					</tr>
 				</c:forEach>
 			</table>
+		</div>
+		<div class="text-center col-md-12">
+			<c:if test="${itemCount/pageSize>0 }">
+				<ul class="pagination text-center">
+					<c:if test="${not empty page and page > 1  }">
+						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${page-1}">上一页 </a></li>
+					</c:if>
+					<c:forEach var="i" begin="1" end="${itemCount/pageSize+1}">
+						<c:if test="${page == i}">
+							<li class="active"><a>${i}</a></li>
+						</c:if>
+						<c:if test="${page !=i}">
+							<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${i}">${i}</a></li>
+						</c:if>
+					</c:forEach>
+					<c:if test="${page <= itemCount/pageSize }">
+						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${page+1}">下一页 </a></li>
+					</c:if>
+				</ul>
+			</c:if>
 		</div>
 		<!-- 发表评论 -->
 		<div class="col-md-12 col-sm-12">

@@ -5,12 +5,10 @@ $(document).ready(function() { // 上传数据
 	$("#good-image").change(function() {
 		var reader = new FileReader();
 		reader.readAsDataURL(this.files[0]);
-		if ($(this).val().length > 0)
-		{
+		if ($(this).val().length > 0) {
 			formData.append("imageName", this.files[0]);
 			$(this).removeClass("warning");
-		} else
-		{
+		} else {
 			$(this).addClass("warning");
 			formData.append("imageName", null);
 		}
@@ -20,7 +18,6 @@ $(document).ready(function() { // 上传数据
 		reader.onload = function(e) {
 			$("#image-show").addClass("show-image");
 			$("#image-show").attr("src", this.result);
-
 		}
 	});
 
@@ -31,16 +28,13 @@ $(document).ready(function() { // 上传数据
 		var OK = true;
 		// 检查数据格式
 		$("[placeholder]").each(function() {
-			if (this.value.length == 0)
-			{
+			if (this.value.length == 0) {
 				$(this).addClass("warning");
 				// 添加监听
 				$(this).keyup(function() {
-					if ($(this).val().length > 0)
-					{
+					if ($(this).val().length > 0) {
 						$(this).removeClass("warning");
-					} else
-					{
+					} else {
 						$(this).addClass("warning");
 					}
 				});
@@ -49,17 +43,15 @@ $(document).ready(function() { // 上传数据
 			}
 		});
 
-		//检查是否选择文件
-		if (formData.get('imageName') == null)
-		{
+		// 检查是否选择文件
+		if (formData.get('imageName') == null) {
 			$.growl.warning({
 				title : "",
 				message : "请选择要上传的文件"
 			});
 			return;
 		}
-		if (!OK)
-		{
+		if (!OK) {
 			$.growl.notice({
 				title : "",
 				message : "请填写所有信息"
@@ -83,15 +75,12 @@ $(document).ready(function() { // 上传数据
 			processData : false,
 			mimeType : "multipart/form-data",
 			success : function(data) {
-				if (data == "offline")
-				{
+				if (data == "offline") {
 					show_login();
-				} else
-				{
-					$.growl.notice({
-						title : "",
-						message : data
-					});
+					return;
+				}
+				if (data == 'success') {
+					location.reload();
 				}
 			}
 		});

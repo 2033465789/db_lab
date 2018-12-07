@@ -18,7 +18,7 @@
 		</script>
 	</c:if>
 
-	<c:if test="${shared.size() eq 0}">
+	<c:if test="${itemCount eq 0}">
 		<script type="text/javascript">
 			showNoticeMSG("暂无资源");
 		</script>
@@ -59,8 +59,6 @@
 							<c:set var="type" value="其他"></c:set>
 						</c:otherwise>
 					</c:choose>
-
-
 					<div class="file-container col-md-5 col-sm-12 text-center">
 						<div data-file="${e.id}">
 							<div class="col-md-12 col-sm-12 margin-top-bottom-10px" style="overflow: auto;">

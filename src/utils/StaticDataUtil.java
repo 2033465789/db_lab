@@ -15,7 +15,8 @@ public class StaticDataUtil {
 	public final static int MIN_ADMIN = 2;
 	// 用户为管理员管理员的最大权限等级
 	public final static int SUPER_ADMIN = 3;
-	public final static int PAGE_SIZE = 4;
+	public final static int PAGE_FILE_SIZE = 4;
+	public final static int PAGE_COMMENT_SIZE = 4;
 	// 普通用户
 	public final static int USER = 1;
 

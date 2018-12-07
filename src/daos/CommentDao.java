@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import base.BaseDao;
 import exceptions.DBConnctionException;
 import javabeans.CommentFile;
+import utils.StaticDataUtil;
 
 public class CommentDao extends BaseDao {
 	public CommentDao() throws DBConnctionException {
@@ -23,9 +24,9 @@ public class CommentDao extends BaseDao {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				list.add(new CommentFile(rs.getLong("cid"), rs.getString("uid"),
-						rs.getLong("sid"), rs.getString("content")));
+						rs.getLong("sid"), rs.getString("content"),
+						rs.getDate("createTime").toString()));
 			}
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -72,5 +73,28 @@ public class CommentDao extends BaseDao {
 			e.printStackTrace();
 		}
 		return res == cacheList.size();
+	}
+
+	public LinkedList<CommentFile> getItemAsPageByFileId(String sid,
+			String page) {
+		long curpage = Long.parseLong(page) - 1;
+		String sql = "select * from commentFile where sid= ? limit "
+				+ curpage * StaticDataUtil.PAGE_COMMENT_SIZE + ","
+				+ StaticDataUtil.PAGE_COMMENT_SIZE + "";
+		return doQueryAsList(sql, sid);
+	}
+
+	public long getItemCount(String sid) {
+		try {
+			String sql = "select count(*) from commentFile where sid= ? ";
+			PreparedStatement pst = conn.prepareStatement(sql);
+			pst.setString(1, sid);
+			ResultSet set = pst.executeQuery();
+			set.next();
+			return set.getLong(1);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 }

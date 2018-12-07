@@ -67,7 +67,7 @@ public class DownloadResource extends HttpServlet
 							rset.getString("fileType"), rset.getString("fileDesc"));
 					shared.add(item);
 					request.setAttribute("itemCount", service.getItemCount());
-					request.setAttribute("pageSize", StaticDataUtil.PAGE_SIZE);
+					request.setAttribute("pageSize", StaticDataUtil.PAGE_FILE_SIZE);
 					request.setAttribute("page", Long.parseLong(page));
 				}
 				service.close();

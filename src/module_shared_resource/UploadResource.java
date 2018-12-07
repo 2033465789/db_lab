@@ -62,9 +62,9 @@ public class UploadResource extends HttpServlet {
 			int id = CacheUtil.getNewItemId(ct.getSharedCache(), "shared");
 			if (ct.addItemToSharedCache(new SharedResource(id, fileName,
 					uploadUser, uploadTime, callPath, fileType, fileDesc))) {
-				response.getOutputStream().write("上传成功".getBytes("utf-8"));
+				response.getOutputStream().write("success".getBytes("utf-8"));
 			} else {
-				response.getOutputStream().write("上传失败".getBytes("utf-8"));
+				response.getOutputStream().write("failed".getBytes("utf-8"));
 			}
 		} catch (FileUploadException e1) {
 			e1.printStackTrace();

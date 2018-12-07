@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import base.BaseService;
+import daos.CommentDao;
 import exceptions.DBConnctionException;
 import javabeans.CommentFile;
 import javabeans.SharedResource;
-import services.CommentService;
 import services.SharedService;
 import utils.CacheUtil;
+import utils.StaticDataUtil;
 
 /**
  * Servlet implementation class ShowFile
@@ -36,7 +37,11 @@ public class ShowFileDetails extends HttpServlet {
 	protected void service(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String id = request.getParameter("id");
+		String page = request.getParameter("page");
+		if (page == null)
+			page = "1";
 		SharedService sharedService = null;
+		CommentDao dao = null;
 		try {
 			sharedService = new SharedService();
 			int dbMaxId = BaseService.getTableMAXId("shared");
@@ -53,14 +58,19 @@ public class ShowFileDetails extends HttpServlet {
 				}
 			}
 			// 从数据库获取缓存
-			LinkedList<CommentFile> comments = new CommentService()
-					.getItemByFileId(id);
+			dao = new CommentDao();
+			LinkedList<CommentFile> comments = dao.getItemAsPageByFileId(id,
+					page);
 			// 从缓存中获取评论
 			getCommentsFormCache(comments, id);
 			request.setAttribute("file", sharedResource);
 			request.setAttribute("comments", comments);
+			request.setAttribute("page", Long.parseLong(page));
+			request.setAttribute("pageSize", StaticDataUtil.PAGE_COMMENT_SIZE);
+			request.setAttribute("itemCount", dao.getItemCount(id));
 			request.getRequestDispatcher("show_file_details.jsp")
 					.forward(request, response);
+			dao.close();
 		} catch (DBConnctionException e) {
 			request.setAttribute("exception", e);
 			request.getRequestDispatcher("error.jsp").forward(request,
@@ -69,6 +79,8 @@ public class ShowFileDetails extends HttpServlet {
 		} finally {
 			if (sharedService != null)
 				sharedService.close();
+			if (dao != null)
+				dao.close();
 		}
 	}
 
