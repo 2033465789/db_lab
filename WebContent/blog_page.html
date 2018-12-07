@@ -1,0 +1,96 @@
+{% extends "basic.html" %}
+{% load static %}
+
+{% block title %}欢迎来到LH的主页{%  endblock %}
+
+{% block links %}
+    <script src="{% static "js/utils.js" %}"></script>
+{% endblock %}
+
+{% block style %}
+    <style>
+        .mynav {
+            background: url("{% static "resource/index.jpg" %}");
+            background-size: inherit;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    {% if request.session.user %}
+        <div class="mynav text-dark text-center py-4">
+            <h1 class="text-light display-3 mb-3 ">{{ request.session.user }}的首页</h1>
+        </div>
+    {% endif %}
+    <section class="py-6 col-md-12">
+        <div class="container">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a href="#blog" class="nav-link text-dark p-3 text-lg-center active" data-toggle="tab" style="font-size: 1.5rem">博客</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#learn" class="nav-link text-dark p-3 text-lg-center" data-toggle="tab" style="font-size: 1.5rem">学校简介</a>
+                </li>
+            </ul>
+            <div class="tab-content py-3">
+                <div id="learn" class="tab-pane">
+                    <div class="jumbotron">
+                        <h1 class="display-5">云南大学</h1>
+                        <p class="lead">云南大学（Yunnan University）是一所历史悠久、文脉深远、在国际上有影响力的中国著名大学，简称云大（YNU），原名私立东陆大学，始建于1922年12月，1934年更名为省立云南大学，1938年改为国立云南大学，1946年，《不列颠百科全书》将云大列为中国15所世界著名大学之一，1950年定名云南大学 ，沿用至今。</p>
+                        <hr class="my-4">
+                        <p>
+                            云南大学属中国首批42所世界一流大学建设高校之一，是列入教育部直属高校序列、教育部与云南省“部省合建”的全国重点大学，位列双一流、211工程、一省一校、中西部高校综合实力提升工程、中西部高校基础能力建设工程，入选111计划、卓越法律人才教育培养计划、卓越工程师教育培养计划、国家大学生创新性实验计划、国家建设高水平大学公派研究生项目，是中西部“一省一校”国家重点建设大学(Z14)联盟成员、中国政府奖学金来华留学生接收院校，具有自主招生资格。 [2]
+                            云南大学位于云南昆明，有呈贡、东陆两个校区，占地面积4363.64亩，公用校舍建筑面积100余万平方米；教学、科研仪器设备及信息化设备资产总值8.12亿余元，图书馆藏书360余万册。
+                            截至2018年7月，云大设有研究生院，有博士后流动站14个，一级学科博士点21个，一级学科硕士点42个，专业硕士类别22个，本科专业86个；有教职工2965人，院士7人；微生物学、化学、植物学与动物学学科进入ESI全球前1%。云大现已成为以民族学、生物学、特色资源开发与环境保护为优势，以边疆和东南亚、南亚国际问题研究为特色，学科齐全的综合性大学。</p>
+                        <a class="btn btn-primary btn-lg" href="https://baike.baidu.com/item/%E4%BA%91%E5%8D%97%E5%A4%A7%E5%AD%A6?fromtitle=YNU&fromid=11227408" role="button">百度百科</a>
+                    </div>
+                </div>
+
+                <div id="blog" class="tab-pane active">
+                    <form action="/upload/" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <div class="custom-file">
+                                <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                       accept=".md,.markdown"
+                                       aria-describedby="inputGroupFileAddon01" name="myfile">
+                                <label class="custom-file-label" for="inputGroupFile01">Choose a markdown file</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
+                    {% for blog in blog_list %}
+                        <div class="card" style="margin: 10px">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ blog.fn }}</h5>
+                                <div class="float-left">
+                                    <p class="card-subtitle" style="color: lightgray">
+                                        (<script>document.write(fileTime({{ blog.fmt }}, '编辑'));</script>，
+                                        <script>document.write(fileTime({{ blog.fct }}, '创建'));</script>)
+                                    </p>
+                                    <p class="card-text">
+                                        {{ blog.brief }}
+                                    </p>
+                                </div>
+                                <a href="/blog?&bid={{ blog.bid }}" class="btn btn-primary float-right">浏  览</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div >
+            </div>
+            <div class="col-md-6 col-md-offset-3">
+                <ul class="pagination">
+                    {% if  previous_page != 0 %}
+                        <li class="page-item"><a  href="/home?page_num={{ previous_page }}" class="page-link">上一页</a></li>
+                    {% endif %}
+                    {%  for i in page_list %}
+                        <li class="page-item"><a href="/home?page_num={{ i }}" class="page-link">{{ i }}</a></li>
+                    {% endfor %}
+                    {% if previous_page != page_count %}
+                        <li class="page-item"><a href="/home?page_num={{ next_page }}" class="page-link" >下一页</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </section>
+{% endblock %}
