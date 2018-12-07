@@ -81,7 +81,7 @@
 		<div class="text-center col-md-12">
 			<c:if test="${itemCount/pageSize>0 }">
 				<ul class="pagination text-center">
-					<c:if test="${not empty page and page > 1  }">
+					<c:if test="${not empty page and page > 1}">
 						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${page-1}">上一页 </a></li>
 					</c:if>
 					<c:forEach var="i" begin="1" end="${itemCount/pageSize+1}">
@@ -92,7 +92,7 @@
 							<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${i}">${i}</a></li>
 						</c:if>
 					</c:forEach>
-					<c:if test="${page <= itemCount/pageSize }">
+					<c:if test="${page <= itemCount/pageSize">
 						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${page+1}">下一页 </a></li>
 					</c:if>
 				</ul>

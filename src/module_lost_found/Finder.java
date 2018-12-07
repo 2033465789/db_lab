@@ -40,7 +40,6 @@ public class Finder extends HttpServlet {
 				response.getWriter().append("offline");
 				return;
 			}
-
 			String newFileName = user.getUid() + "-"
 					+ stringTool.getCurrentTime("yyyyMMddHHmmssSSS");
 			String filePath = stringTool.getImagespath();
@@ -59,11 +58,10 @@ public class Finder extends HttpServlet {
 			if (ct.addItemToGoodsCache(new Good(id, user.getUid(), numberInfo,
 					losterName, goodDesc, foundDddr, finderName, finderPhone,
 					finderQQorWX, callPath))) {
-				response.getOutputStream().write("上传成功".getBytes("utf-8"));
+				response.getOutputStream().write("success".getBytes("utf-8"));
 			} else {
-				response.getOutputStream().write("物品已经被提交".getBytes("utf-8"));
+				response.getOutputStream().write("failed".getBytes("utf-8"));
 			}
-
 		} catch (FileUploadException e1) {
 			e1.printStackTrace();
 		} catch (MyException e) {

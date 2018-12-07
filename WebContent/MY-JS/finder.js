@@ -66,7 +66,6 @@ $(document).ready(function() { // 上传数据
 		formData.append("finderName", $("#finder-name").val().trim());
 		formData.append("finderPhone", $("#finder-phone").val().trim());
 		formData.append("finderQQorWX", $("#finder-QQorWX").val().trim());
-
 		$.ajax({
 			url : "Finder",
 			type : "post",
@@ -79,9 +78,11 @@ $(document).ready(function() { // 上传数据
 					show_login();
 					return;
 				}
-				if (data == 'success') {
+				showNoticeMSG("上传成功");
+				window.setTimeout(function() {
 					location.reload();
-				}
+				}, 500);
+
 			}
 		});
 	});

@@ -31,7 +31,6 @@
 							<img src="staticImages/lost_find.jpg" style="height: 80%; width: 100%;">
 						</div>
 					</div>
-
 					<div id="find" class="col-md-3 col-sm-12 col-xs-12 module-container"
 						onclick="location.href='loster'" style="background-color: green;">
 						<div class="text-center">
@@ -41,7 +40,6 @@
 							<img src="staticImages/lost_find.jpg" style="height: 80%; width: 100%;">
 						</div>
 					</div>
-
 					<div id="shared" class="col-md-3 col-sm-12 col-xs-12 module-container"
 						onclick="location.href='upload_resource'" style="background-color: blue;">
 						<div class="text-center">

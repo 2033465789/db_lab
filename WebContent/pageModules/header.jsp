@@ -18,3 +18,10 @@
 <%
 	String contextPath = request.getContextPath();
 %>
+
+
+<c:if test="${not empty alert}">
+	<script>
+		showNoticeMSG('${alert}');
+	</script>
+</c:if>
