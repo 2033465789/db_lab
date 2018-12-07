@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import base.BaseDao;
 import exceptions.DBConnctionException;
@@ -96,5 +97,24 @@ public class CommentDao extends BaseDao {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public List<CommentFile> getAllItem() {
+		String sql = "select * from commentFile";
+		PreparedStatement pst;
+		try {
+			pst = conn.prepareStatement(sql);
+			ResultSet rest = pst.executeQuery();
+			List<CommentFile> comments = new ArrayList<>();
+			while (rest.next()) {
+				comments.add(new CommentFile(rest.getLong(1), rest.getString(2),
+						rest.getLong(3), rest.getString(4),
+						rest.getDate(5).toString()));
+			}
+			return comments;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

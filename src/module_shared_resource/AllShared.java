@@ -22,69 +22,62 @@ import utils.StaticDataUtil;
  * Servlet implementation class AllShared
  */
 @WebServlet("/AllShared")
-public class AllShared extends HttpServlet
-{
+public class AllShared extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AllShared()
-	{
+	public AllShared() {
 		super();
 	}
 
 	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException
-	{
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		RequestUtil requestUtil = new RequestUtil(request);
-		if (!requestUtil.isOnline())
-		{
+		if (!requestUtil.isOnline()) {
 			response.getWriter().append(StaticDataUtil.OFFLINE);
 			return;
 		}
 		SharedService service = null;
-		try
-		{
+		try {
 			service = new SharedService();
 			ArrayList<SharedResource> allShared = new ArrayList<SharedResource>();
 			getItemsFromDB(allShared, service, requestUtil);
 			getItemsFromCache(allShared);
 			request.setAttribute("allShared", allShared);
-			request.getRequestDispatcher("all_shared.jsp").forward(request, response);
-		} catch (DBConnctionException e)
-		{
+			request.getRequestDispatcher("shared.jsp").forward(request,
+					response);
+		} catch (DBConnctionException e) {
 			request.setAttribute("info", e.getErrorInfo());
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.getRequestDispatcher("error.jsp").forward(request,
+					response);
 			e.printStackTrace();
-		} catch (SQLException e)
-		{
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+		} catch (SQLException e) {
+			request.getRequestDispatcher("error.jsp").forward(request,
+					response);
 			e.printStackTrace();
-		} finally
-		{
+		} finally {
 			if (service != null)
 				service.close();
 		}
 	}
 
-	private void getItemsFromCache(ArrayList<SharedResource> allShared)
-	{
+	private void getItemsFromCache(ArrayList<SharedResource> allShared) {
 		allShared.addAll(CacheUtil.getCacheTool().getSharedCache());
 	}
 
-	private void getItemsFromDB(ArrayList<SharedResource> allShared, SharedService service, RequestUtil requestUtil)
-			throws SQLException
-	{
+	private void getItemsFromDB(ArrayList<SharedResource> allShared,
+			SharedService service, RequestUtil requestUtil)
+			throws SQLException {
 		ResultSet rset = service.getAllResourceByUser(requestUtil.getUser());
-		while (rset.next())
-		{
-			SharedResource item = new SharedResource(rset.getInt("sid"), rset.getString("fileName"),
-					rset.getString("uid"), rset.getString("uploadTime"), rset.getString("filePath"),
+		while (rset.next()) {
+			SharedResource item = new SharedResource(rset.getInt("sid"),
+					rset.getString("fileName"), rset.getString("uid"),
+					rset.getString("uploadTime"), rset.getString("filePath"),
 					rset.getString("fileType"), rset.getString("fileDesc"));
 
 			allShared.add(item);

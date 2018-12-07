@@ -29,8 +29,8 @@
 	width: 100%;
 }
 
-.hide {
-	display: none;
+.auto_overflow {
+	overflow : auto;
 }
 
 .btn-search {

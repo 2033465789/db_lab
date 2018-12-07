@@ -51,7 +51,7 @@ public class ShowFileDetails extends HttpServlet {
 			} else {
 				for (SharedResource item : CacheUtil.getCacheTool()
 						.getSharedCache()) {
-					if (item.getId() == Integer.parseInt(id)) {
+					if (item.getSid() == Integer.parseInt(id)) {
 						sharedResource = item;
 						break;
 					}

@@ -51,8 +51,8 @@ public class Operate extends BaseOperate
 	{
 		for (SharedResource item : cache)
 		{
-			System.out.println(item.getId() + "   " + itemId);
-			if (item.getId() == itemId)
+			System.out.println(item.getSid() + "   " + itemId);
+			if (item.getSid() == itemId)
 			{
 				return cache.remove(item);
 			}

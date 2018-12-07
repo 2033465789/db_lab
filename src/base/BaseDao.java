@@ -19,8 +19,8 @@ public class BaseDao {
 
 	public static int getTableMAXId(String tableName)
 			throws DBConnctionException {
-		String id = tableName.charAt(0) +"id";
-		String sql = "select max("+id+") from " + tableName;
+		String id = tableName.charAt(0) + "id";
+		String sql = "select max(" + id + ") from " + tableName;
 		Connection con = null;
 		try {
 			con = ConnectPoolManager.getConnection();
@@ -74,7 +74,6 @@ public class BaseDao {
 		}
 		return false;
 	}
-
 	// 回收连接
 	protected void finalize() throws Throwable {
 		if (!conn.isClosed())

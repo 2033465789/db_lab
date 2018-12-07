@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import base.BaseDao;
 import exceptions.DBConnctionException;
@@ -104,10 +105,10 @@ public class SharedDao extends BaseDao {
 
 	public ResultSet getPageShared(String page) {
 		String sql = "select * from shared limit ?,?";
-		long curpage = Long.parseLong(page)-1;
+		long curpage = Long.parseLong(page) - 1;
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setLong(1,  curpage* StaticDataUtil.PAGE_FILE_SIZE);
+			pst.setLong(1, curpage * StaticDataUtil.PAGE_FILE_SIZE);
 			pst.setLong(2, StaticDataUtil.PAGE_FILE_SIZE);
 			return pst.executeQuery();
 		} catch (SQLException e) {
@@ -120,12 +121,30 @@ public class SharedDao extends BaseDao {
 		String sql = "select count(*) from shared";
 		try {
 			PreparedStatement pst = conn.prepareStatement(sql);
-			ResultSet set =  pst.executeQuery();
+			ResultSet set = pst.executeQuery();
 			set.next();
 			return set.getLong(1);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return 0;
+	}
+
+	public List<SharedResource> getAllItem() {
+		String sql = "select * from shared";
+		ArrayList<SharedResource> list = new ArrayList<>();
+		try {
+			PreparedStatement pst = conn.prepareStatement(sql);
+			ResultSet set = pst.executeQuery();
+			while (set.next()) {
+				list.add(new SharedResource(set.getLong(1), set.getString(2),
+						set.getString(3), set.getString(4), set.getString(5),
+						set.getString(6), set.getString(7)));
+			}
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

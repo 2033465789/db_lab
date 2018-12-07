@@ -23,89 +23,82 @@ import utils.StaticDataUtil;
  * Servlet implementation class SharedResource
  */
 @WebServlet("/DownloadResource")
-public class DownloadResource extends HttpServlet
-{
+public class DownloadResource extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public DownloadResource()
-	{
+	public DownloadResource() {
 		super();
 	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	public void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String searchInfo = request.getParameter("searchInfo");
 		String page = request.getParameter("page");
-		if(page == null)
+		if (page == null)
 			page = "1";
 		// 返回所有资源的集合
 		LinkedList<SharedResource> shared = null;
-		try
-		{
+		try {
 			// 判断是否为搜索
-			if (InputCheckUtil.isOK(searchInfo))
-			{
+			if (InputCheckUtil.isOK(searchInfo)) {
 				dealSearchInfo(shared, searchInfo);
-			}else
-			{
+			} else {
 				// 返回所有资源的集合
 				shared = new LinkedList<>();
 				SharedDao service = new SharedDao();
 				// 从数据库获取数据
 				ResultSet rset = service.getPageShared(page);
-				while (rset.next())
-				{
-					SharedResource item = new SharedResource(rset.getInt("sid"), rset.getString("fileName"),
-							rset.getString("uid"), rset.getString("uploadTime"), rset.getString("filePath"),
-							rset.getString("fileType"), rset.getString("fileDesc"));
+				while (rset.next()) {
+					SharedResource item = new SharedResource(rset.getInt("sid"),
+							rset.getString("fileName"), rset.getString("uid"),
+							rset.getString("uploadTime"),
+							rset.getString("filePath"),
+							rset.getString("fileType"),
+							rset.getString("fileDesc"));
 					shared.add(item);
-					request.setAttribute("itemCount", service.getItemCount());
-					request.setAttribute("pageSize", StaticDataUtil.PAGE_FILE_SIZE);
-					request.setAttribute("page", Long.parseLong(page));
 				}
+
+				request.setAttribute("itemCount", service.getItemCount());
 				service.close();
 			}
 			request.setAttribute("shared", shared);
-			
-			request.getRequestDispatcher("download_resource.jsp").forward(request, response);
-		} catch (SQLException e)
-		{
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.setAttribute("pageSize", StaticDataUtil.PAGE_FILE_SIZE);
+			request.setAttribute("page", Long.parseLong(page));
+			request.getRequestDispatcher("download_resource.jsp")
+					.forward(request, response);
+		} catch (SQLException e) {
+			request.getRequestDispatcher("error.jsp").forward(request,
+					response);
 			e.printStackTrace();
-		} catch (DBConnctionException e)
-		{
+		} catch (DBConnctionException e) {
 			request.setAttribute("info", e.getErrorInfo());
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.getRequestDispatcher("error.jsp").forward(request,
+					response);
 			e.printStackTrace();
-		} catch (MyException e)
-		{
+		} catch (MyException e) {
 			request.setAttribute("info", e.getErrorInfo());
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.getRequestDispatcher("error.jsp").forward(request,
+					response);
 			e.printStackTrace();
 		}
 	}
 
-	private void dealSearchInfo(LinkedList<SharedResource> shared, String searchInfo)
-	{
+	private void dealSearchInfo(LinkedList<SharedResource> shared,
+			String searchInfo) {
 		Iterator<SharedResource> iterator = shared.iterator();
-		while (iterator.hasNext())
-		{
+		while (iterator.hasNext()) {
 			SharedResource item = iterator.next();
-			if (!item.containsInfo(searchInfo))
-			{
+			if (!item.containsInfo(searchInfo)) {
 				iterator.remove();
 			}
 		}
 	}
-
-	
 
 	// 判断文件是否存在,存在则加入响应数据
 	// private void dealItem(LinkedList<SharedResource> shared, SharedResource
@@ -129,11 +122,10 @@ public class DownloadResource extends HttpServlet
 	// }
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
-	{
+	public void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

@@ -17,13 +17,11 @@
 			location.href = 'DownloadResource';
 		</script>
 	</c:if>
-
 	<c:if test="${itemCount eq 0}">
 		<script type="text/javascript">
 			showNoticeMSG("暂无资源");
 		</script>
 	</c:if>
-
 	<div class="container">
 		<!--  导航栏 -->
 		<jsp:include page="mynav.jsp"></jsp:include>
@@ -38,7 +36,6 @@
 					</div>
 				</form>
 			</div>
-
 			<!-- 文件显示栏 -->
 			<div class="col-md-12 col-sm-12">
 				<c:forEach var="e" items="${shared}">
@@ -60,23 +57,19 @@
 						</c:otherwise>
 					</c:choose>
 					<div class="file-container col-md-5 col-sm-12 text-center">
-						<div data-file="${e.id}">
+						<div data-file="${e.sid}">
 							<div class="col-md-12 col-sm-12 margin-top-bottom-10px" style="overflow: auto;">
 								<span class="label label-file-name margin-top-bottom-10px">${ e.fileName}</span>
 							</div>
-
 							<div class="col-md-3 col-sm-3 margin-top-bottom-10px">
 								<span class="label label-info">文件类型:${type}</span>
 							</div>
-
 							<div class="col-md-4 col-sm-3 margin-top-bottom-10px">
 								<span class="label label-warning">上传作者:${e.uploadUser}</span>
 							</div>
-
 							<div class="col-md-3 col-sm-3 margin-top-bottom-10px">
 								<span class="label label-info">上传时间:${e.uploadTime}</span>
 							</div>
-
 							<div class="col-md-12 col-sm-12 margin-top-bottom-10px">
 								<div class="file-desc margin-top-bottom-10px">${e.fileDesc}</div>
 							</div>

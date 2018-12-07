@@ -3,7 +3,7 @@ package javabeans;
 public class SharedResource {
 	private String fileName, uploadUser, uploadTime, filePath, fileType,
 			fileDesc;
-	private int sid;
+	private long sid;
 
 	public SharedResource() {
 
@@ -22,7 +22,7 @@ public class SharedResource {
 	}
 
 	// sharedId, fileName, uploadUser, uploadTime, filePath, fileType, fileDesc
-	public SharedResource(int id, String fileName, String uploadUser,
+	public SharedResource(long id, String fileName, String uploadUser,
 			String uploadTime, String filePath, String fileType,
 			String fileDesc) {
 		super();
@@ -103,11 +103,11 @@ public class SharedResource {
 		return true;
 	}
 
-	public long getId() {
+	public long getSid() {
 		return sid;
 	}
 
-	public void setId(int sharedId) {
+	public void setSid(int sharedId) {
 		this.sid = sharedId;
 	}
 
