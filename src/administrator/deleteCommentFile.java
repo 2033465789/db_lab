@@ -33,7 +33,6 @@ public class deleteCommentFile extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String cid = request.getParameter("cid");
-		System.out.println(cid);
 		if (cid == null) {
 			request.setAttribute("alert", "你想干嘛?!?");
 			request.getRequestDispatcher("/admin/AdministratorCenter")
@@ -61,7 +60,9 @@ public class deleteCommentFile extends HttpServlet {
 					request.getRequestDispatcher("/admin/AdministratorCenter")
 							.forward(request, response);
 				else {
-
+					request.setAttribute("alert", "发生意外啦！");
+					request.getRequestDispatcher("/admin/AdministratorCenter")
+							.forward(request, response);
 				}
 			} catch (DBConnctionException e) {
 				e.printStackTrace();
@@ -70,7 +71,6 @@ public class deleteCommentFile extends HttpServlet {
 			}
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

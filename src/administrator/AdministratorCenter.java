@@ -37,7 +37,8 @@ public class AdministratorCenter extends HttpServlet {
 		if (reqTool.getUser() == null
 				|| reqTool.getUser().hasBasePermission() == false) {
 			request.setAttribute("alert", "你想干嘛!?!");
-			request.getRequestDispatcher("main.jsp").forward(request, response);
+			request.getRequestDispatcher("/main.jsp").forward(request,
+					response);
 			return;
 		}
 		boolean dbStatus = ConnectPoolManager.getUserConnectionStatus();
@@ -57,7 +58,7 @@ public class AdministratorCenter extends HttpServlet {
 			cdao = new CommentFileDao();
 			request.setAttribute("shared", sdao.getAllItem());
 			request.setAttribute("comments", cdao.getAllItem());
-			request.getRequestDispatcher("administrator_center.jsp")
+			request.getRequestDispatcher("/admin/administrator_center.jsp")
 					.forward(request, response);
 		} catch (DBConnctionException e) {
 			e.printStackTrace();

@@ -104,9 +104,8 @@
 											<td>${item.sid}</td>
 											<td>${item.content}</td>
 											<td>${item.createTime}</td>
-											<td><button type="button"
-													onclick="<%=contextPath%>/admin/deleteCommentFile?cid=${item.cid}"
-													class="btn btn-danger">删除</button></td>
+											<td><a type="button" href="<%=contextPath%>/admin/deleteCommentFile?cid=${item.cid}"
+												class="btn btn-danger">删除</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
