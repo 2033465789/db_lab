@@ -17,7 +17,7 @@ import utils.RequestUtil;
 /**
  * Servlet implementation class FlushCache
  */
-@WebServlet("/FlushCache")
+@WebServlet("/admin/FlushCache")
 public class FlushCache extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;

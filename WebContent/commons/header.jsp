@@ -5,9 +5,12 @@
 
 <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
 <link rel="stylesheet" href="MY-CSS/static.css">
-<script type="text/javascript" src="JQuery/jquery.min.js"></script>
+
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+
 <script type="text/javascript" src="bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="MY-JS/public.js"></script>
+
 <link rel="stylesheet" href="JQuery/jquery.growl.css">
 <script type="text/javascript" src="JQuery/jquery.growl.js"></script>
 

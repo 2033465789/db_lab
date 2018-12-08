@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 
 <script type="text/javascript" src="MY-JS/all_find.js"></script>
 <title>所有捡到的物品</title>
@@ -23,7 +23,7 @@
 	</c:if>
 
 	<div class="col-md-12 col-sm-12">
-		<jsp:include page="mynav.jsp"></jsp:include>
+		<jsp:include page="commons/mynav.jsp"></jsp:include>
 		<div class="col-md-12 col-sm-12">
 			<table class="table table-hover">
 				<thead>
@@ -43,7 +43,6 @@
 							</td>
 							<td><button type="button" class="btn btn-danger"
 									onclick="deleteGood('${item.id}')">删除</button></td>
-
 							<td><button type="button" class="btn btn-mybtn"
 									onclick="findLoster('${item.id}')">已成功找到失主</button></td>
 						</tr>

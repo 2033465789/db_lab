@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 
 <script type="text/javascript" src="MY-JS/sharedResource.js"></script>
 <title>上传文件</title>
@@ -16,7 +16,7 @@
 	</c:if>
 	<div class="full-screen-transport" id="uploading"></div>
 	<div class="container">
-		<jsp:include page="mynav.jsp"></jsp:include>
+		<jsp:include page="commons/mynav.jsp"></jsp:include>
 		<div class="row">
 			<form role="from" class="bs-example bs-example-form">
 				<div class="form-group col-md-12  col-sm-12">

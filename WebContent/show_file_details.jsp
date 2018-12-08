@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 
 <script type="text/javascript" src="MY-JS/sharedResource.js"></script>
 </head>

@@ -37,6 +37,10 @@ public class BaseDao {
 		return 0;
 	}
 
+	public int exe_sql(String sql) throws DBConnctionException {
+		return 0;
+	}
+
 	public static int getVisiteNum() throws DBConnctionException {
 		String sql = "select visiteNum from app";
 		Connection con = null;

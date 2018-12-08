@@ -4,17 +4,17 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import base.BaseService;
-import daos.CommentDao;
+import daos.CommentFileDao;
 import exceptions.DBConnctionException;
 import javabeans.CommentFile;
 
 public class CommentService extends BaseService
 {
-	CommentDao dao;
+	CommentFileDao dao;
 
 	public CommentService() throws DBConnctionException
 	{
-		dao = new CommentDao();
+		dao = new CommentFileDao();
 	}
 
 	public LinkedList<CommentFile> getItemById(String id)

@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 <script type="text/javascript" src="MY-JS/main.js"></script>
 <title>首页</title>
 </head>
@@ -19,7 +19,7 @@
 		<div class="row">
 			<div class="col-md-9 col-sm-12 col-xs-12">
 				<div class="col-md-12 col-sm-12 col-xs-12">
-					<%@include file="mynav.jsp"%>
+					<%@include file="commons/mynav.jsp"%>
 				</div>
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div id="find" class="col-md-3 col-sm-12 col-xs-12 module-container"

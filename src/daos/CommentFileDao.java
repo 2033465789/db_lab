@@ -1,5 +1,6 @@
 package daos;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,8 +13,8 @@ import exceptions.DBConnctionException;
 import javabeans.CommentFile;
 import utils.StaticDataUtil;
 
-public class CommentDao extends BaseDao {
-	public CommentDao() throws DBConnctionException {
+public class CommentFileDao extends BaseDao {
+	public CommentFileDao() throws DBConnctionException {
 		super();
 	}
 
@@ -117,4 +118,22 @@ public class CommentDao extends BaseDao {
 		}
 		return null;
 	}
+
+	public boolean deleteItem(String uid, long sid) {
+		String sql = "call deleteCommentFile(?,?)";
+		try {
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.setString(1, uid);
+			cs.setLong(2, sid);
+			cs.executeUpdate();
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	// public static void main(String[] args) throws DBConnctionException {
+	// System.out.println(new CommentFileDao().deleteItem("20161060137", 2));
+	// }
 }

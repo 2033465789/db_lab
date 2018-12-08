@@ -5,22 +5,15 @@ import javax.servlet.http.HttpSession;
 
 import javabeans.User;
 
-public class RequestUtil
-{
+public class RequestUtil {
+
 	private HttpServletRequest request;
 
-	public static RequestUtil getRequestTool(HttpServletRequest request)
-	{
-		return new RequestUtil(request);
-	}
-
-	public RequestUtil(HttpServletRequest request)
-	{
+	public RequestUtil(HttpServletRequest request) {
 		this.request = request;
 	}
 
-	public User getUser()
-	{
+	public User getUser() {
 		HttpSession session = request.getSession(false);
 		User user = null;
 		if (session != null)
@@ -28,10 +21,12 @@ public class RequestUtil
 		return user;
 	}
 
-
 	// 用户已登录
-	public boolean isOnline()
-	{
+	public boolean isOnline() {
 		return getUser() != null;
+	}
+
+	public static RequestUtil getRequestTool(HttpServletRequest request) {
+		return new RequestUtil(request);
 	}
 }

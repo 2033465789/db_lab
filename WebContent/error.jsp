@@ -7,7 +7,7 @@
 	pageEncoding="UTF-8" isErrorPage="true"%>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 <title>出错啦</title>
 </head>
 <body class="container">

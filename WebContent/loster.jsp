@@ -6,7 +6,7 @@
 <html>
 <head>
 
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 
 <script type="text/javascript" src="MY-JS/loster.js"></script>
 
@@ -22,7 +22,7 @@
 
 	<div class="container">
 		<!--  导航  -->
-		<jsp:include page="mynav.jsp"></jsp:include>
+		<jsp:include page="commons/mynav.jsp"></jsp:include>
 		<div class="row">
 			<form role="form">
 				<input style="display: none">

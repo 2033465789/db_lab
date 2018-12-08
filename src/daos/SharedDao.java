@@ -1,5 +1,6 @@
 package daos;
 
+import java.sql.CallableStatement;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,18 +28,6 @@ public class SharedDao extends BaseDao {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	public boolean deleteItemById(int id) {
-		String sql = "delete from shared where sid=?";
-		try {
-			PreparedStatement pst = conn.prepareStatement(sql);
-			pst.setInt(1, id);
-			return pst.executeUpdate() == 1;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
 	public boolean InsertCacheItmes(ArrayList<SharedResource> sharedCache) {
@@ -146,5 +135,22 @@ public class SharedDao extends BaseDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public boolean deleteItem(String uid, long sid) {
+		String sql = "call deleteShared(?,?)";
+		try {
+			CallableStatement cs = conn.prepareCall(sql);
+			cs.setString(1, uid);
+			cs.setLong(2, sid);
+			return cs.executeUpdate() == 1;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public static void main(String[] args) throws DBConnctionException {
+		System.out.println(new SharedDao().deleteItem("1", 3));
 	}
 }

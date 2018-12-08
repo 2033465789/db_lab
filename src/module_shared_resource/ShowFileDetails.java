@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import base.BaseService;
-import daos.CommentDao;
+import daos.CommentFileDao;
 import exceptions.DBConnctionException;
 import javabeans.CommentFile;
 import javabeans.SharedResource;
@@ -41,7 +41,7 @@ public class ShowFileDetails extends HttpServlet {
 		if (page == null)
 			page = "1";
 		SharedService sharedService = null;
-		CommentDao dao = null;
+		CommentFileDao dao = null;
 		try {
 			sharedService = new SharedService();
 			int dbMaxId = BaseService.getTableMAXId("shared");
@@ -58,7 +58,7 @@ public class ShowFileDetails extends HttpServlet {
 				}
 			}
 			// 从数据库获取缓存
-			dao = new CommentDao();
+			dao = new CommentFileDao();
 			LinkedList<CommentFile> comments = dao.getItemAsPageByFileId(id,
 					page);
 			// 从缓存中获取评论

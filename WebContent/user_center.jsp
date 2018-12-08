@@ -2,14 +2,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 
 <script type="text/javascript" src="MY-JS/user.js"></script>
 <title>个人中心</title>
 </head>
 <body class="container">
 	<div class="col-md-12 col-sm-12 col-xs-12">
-		<div class="col-md-12 col-sm-12"><jsp:include page="mynav.jsp"></jsp:include></div>
+		<div class="col-md-12 col-sm-12"><jsp:include page="commons/mynav.jsp"></jsp:include></div>
 		<div
 			class="col-md-12 col-sm-12 text-center border-blue background-gray img-thumbnail image-rounded img-responsive"
 			data-user="data-user">

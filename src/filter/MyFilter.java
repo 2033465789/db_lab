@@ -64,6 +64,11 @@ public class MyFilter implements Filter {
 			chain.doFilter(request, response);
 			return;
 		}
+		// 放行管理员
+		if (uri.contains("admin")) {
+			chain.doFilter(request, response);
+			return;
+		}
 		// 获取请求资源名称
 		String name = uri.substring(uri.lastIndexOf("/") + 1);
 		if (name.length() == 0) {

@@ -4,7 +4,7 @@
 <!-- jstl -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<nav class="navbar navbar-expand-sm bg-light" role="navigation">
+<nav class="navbar navbar-expand-sm bg-light " role="navigation">
 	<a class="navbar-brand" href="<%=request.getContextPath()%>">PiaoPiao</a>
 	<ul class="navbar-nav">
 		<!-- 失物招领 -->
@@ -32,7 +32,8 @@
 				<div class="dropdown-menu">
 					<a href="user_center" target="_blank" class="dropdown-item">个人中心</a>
 					<c:if test="${user.hasBasePermission()}">
-						<a id="admin-operation-center" href="AdministratorCenter" class="dropdown-item">网站后台</a>
+						<a id="admin-operation-center" href="<%=request.getContextPath()%>/admin/AdministratorCenter"
+							class="dropdown-item">网站后台</a>
 					</c:if>
 					<a id="log-out" onclick="logOut()" class="dropdown-item">注销</a>
 				</div></li>

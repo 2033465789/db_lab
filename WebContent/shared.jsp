@@ -3,7 +3,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 
 <script type="text/javascript" src="MY-JS/all_shared.js"></script>
 <title>所有捡到的物品</title>
@@ -27,7 +27,7 @@
 	</c:if>
 
 	<div class="col-md-12 col-sm-12">
-		<jsp:include page="mynav.jsp"></jsp:include>
+		<jsp:include page="commons/mynav.jsp"></jsp:include>
 		<div class="col-md-12 col-sm-12">
 			<table class="table table-hover">
 				<thead>
@@ -47,12 +47,9 @@
 							<td>${item.fileName}</td>
 							<td>${item.uploadTime}</td>
 							<td>${item.fileType}</td>
-
 							<td><button type="button" class="btn btn-danger "
 									onclick="deleteShared('${item.id}')">删除</button></td>
-
-							<td><button type="button" class="btn btn-mybtn"
-									onclick="alterShared'${item.id}')">修改</button></td>
+							<td><button type="button" class="btn btn-mybtn" onclick="alterShared('${item.id}')">修改</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

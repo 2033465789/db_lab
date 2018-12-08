@@ -6,7 +6,7 @@
 <html>
 <head>
 <!-- 公共头部 -->
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 <!-- 页面js文件 -->
 <script type="text/javascript" src="MY-JS/finder.js"></script>
 <title>提交拾取物品</title>
@@ -19,7 +19,7 @@
 	</c:if>
 
 	<div class="container">
-		<jsp:include page="mynav.jsp"></jsp:include>
+		<jsp:include page="commons/mynav.jsp"></jsp:include>
 		<div class="row">
 			<div class="col-md-12 col-sm-12">
 				<form id="good-info" role="form">

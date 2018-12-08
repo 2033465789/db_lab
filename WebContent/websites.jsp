@@ -8,7 +8,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 <script type="text/javascript" src="MY-JS/websites.js"></script>
 <title>常用网站</title>
 </head>
@@ -19,11 +19,11 @@
 		</script>
 	</c:if>
 	<div class="container">
-		<jsp:include page="mynav.jsp"></jsp:include>
+		<jsp:include page="commons/mynav.jsp"></jsp:include>
 		<div class="row">
 			<c:if test="${not empty user && user.hasBasePermission()}">
 				<!-- 管理员组件 -->
-				<jsp:include page="pageModules/admin_operate.html"></jsp:include>
+				<jsp:include page="commons/admin_operate.html"></jsp:include>
 				<!-- 显示模块 -->
 				<div id="show col-md-12">
 					<div id="admin-operate" class="col-md-12  col-xs-12 text-center">

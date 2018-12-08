@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="./pageModules/headerB4.jsp"%>
-<script type="text/javascript" src="MY-JS/admin.js"></script>
+<%@ include file="../commons/headerB4.jsp"%>
+<script type="text/javascript" src="../MY-JS/admin.js"></script>
 <title>网站管理</title>
 </head>
 <body>
@@ -29,16 +29,16 @@
 			</c:otherwise>
 		</c:choose>
 		<div class="container">
-			<jsp:include page="mynavB4.jsp" />
+			<jsp:include page="../commons/mynavB4.jsp" />
 			<div class="row">
-				<div id="db-op" class="col-12 admin-module">
+				<div id="db-op" class="col-12 admin-module pt-5">
 					<h3>
 						<span>数据库状态:${dbStatus}</span>
 					</h3>
 					<button id="close-dbconn" class="btn btn-danger col-5">禁止数据库连接</button>
 					<button id="open-dbconn" class="btn btn-warning col-5">开放数据库连接</button>
 				</div>
-				<div id="db-op" class="col-12 admin-module">
+				<div id="db-op" class="col-12 admin-module pt-5">
 					<h3>
 						<span class="col-12">资源分享模块缓存目前的大小:${sharedCache_size }</span>
 					</h3>
@@ -53,7 +53,7 @@
 					</h3>
 					<button id="flush-cache" class="btn btn-success col-12">将缓存数据写入数据库</button>
 				</div>
-				<div id="shared-op" class="col-12 admin-module">
+				<div id="shared-op" class="col-12 admin-module py-5">
 					<ul class="nav nav-tabs">
 						<li class="nav-item"><a class="nav-link active" data-toggle="tab" href="#shared">分享的资源管理</a></li>
 						<li class="nav-item"><a class="nav-link" data-toggle="tab" href="#comment">所有评论管理</a></li>
@@ -80,6 +80,8 @@
 											<td>${item.uploadTime}</td>
 											<td>${item.fileType}</td>
 											<td>${item.fileDesc}</td>
+											<td><a type="button" href="<%=contextPath%>/admin/deleteShared?sid=${item.sid}"
+												class="btn btn-danger">删除</a></td>
 										</tr>
 									</c:forEach>
 								</tbody>
@@ -102,6 +104,9 @@
 											<td>${item.sid}</td>
 											<td>${item.content}</td>
 											<td>${item.createTime}</td>
+											<td><button type="button"
+													onclick="<%=contextPath%>/admin/deleteCommentFile?cid=${item.cid}"
+													class="btn btn-danger">删除</button></td>
 										</tr>
 									</c:forEach>
 								</tbody>

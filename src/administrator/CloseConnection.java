@@ -15,7 +15,7 @@ import utils.RequestUtil;
 /**
  * Servlet implementation class CloseConnection
  */
-@WebServlet("/CloseConnection")
+@WebServlet("/admin/CloseConnection")
 public class CloseConnection extends HttpServlet
 {
 	private static final long serialVersionUID = 1L;

@@ -34,7 +34,7 @@ function show_login() {
     var bg = $("<div class='login-overplay col-sm-12'></div>");
     var content = $("<div class='login-content col-md-offset-3 col-md-6 col-sm-12'></div>");
     // 加载登录页面
-    content.load("pageModules/login.html");
+    content.load("commons/login.html");
     // 组件拼接
     login.append(bg);
     login.append(content);

@@ -16,11 +16,11 @@
 <!-- 最新的 Bootstrap4 核心 JavaScript 文件 -->
 <script src="https://cdn.staticfile.org/twitter-bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-<link rel="stylesheet" href="JQuery/jquery.growl.css">
-<script type="text/javascript" src="JQuery/jquery.growl.js"></script>
+<link rel="stylesheet" href="../JQuery/jquery.growl.css">
+<script type="text/javascript" src="../JQuery/jquery.growl.js"></script>
 
-<link rel="stylesheet" href="MY-CSS/static.css">
-<script type="text/javascript" src="MY-JS/public.js"></script>
+<link rel="stylesheet" href="../MY-CSS/static.css">
+<script type="text/javascript" src="../MY-JS/public.js"></script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 

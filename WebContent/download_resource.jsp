@@ -6,7 +6,7 @@
 <html>
 <head>
 
-<%@ include file="pageModules/header.jsp"%>
+<%@ include file="commons/header.jsp"%>
 <script type="text/javascript" src="MY-JS/sharedResource.js"></script>
 
 <title>资源共享</title>
@@ -24,7 +24,7 @@
 	</c:if>
 	<div class="container">
 		<!--  导航栏 -->
-		<jsp:include page="mynav.jsp"></jsp:include>
+		<jsp:include page="commons/mynav.jsp"></jsp:include>
 		<div class="row">
 			<!-- 搜索栏 -->
 			<div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
