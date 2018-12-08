@@ -41,7 +41,7 @@
 						<span class="glyphicon glyphicon-user"></span> 账户<b class="caret"></b>
 				</a>
 					<ul class="dropdown-menu">
-						<li><a href="user_center" target="_blank">个人中心</a></li>
+						<li><a href="user_center">个人中心</a></li>
 						<c:if test="${user.hasBasePermission()}">
 							<li><a id="admin-operation-center"
 								href="<%=request.getContextPath()%>/admin/AdministratorCenter">网站后台</a></li>
