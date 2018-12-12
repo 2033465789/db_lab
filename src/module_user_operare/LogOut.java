@@ -32,15 +32,12 @@ public class LogOut extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if (session == null) {
-			request.setAttribute("info", "未登录");
-			request.getRequestDispatcher(request.getContextPath() + "/main.jsp")
-					.forward(request, response);
 			return;
 		}
 		try (OutputStream os = response.getOutputStream()) {
 			session.removeAttribute("user");
 			if (session.getAttribute("user") == null) {
-				response.sendRedirect(request.getContextPath() + "/main");
+				os.write("success".getBytes("utf-8"));
 			} else {
 				os.write("fail".getBytes("utf-8"));
 			}
