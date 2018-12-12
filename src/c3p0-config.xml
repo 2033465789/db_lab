@@ -5,7 +5,6 @@
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
 		<property name="jdbcUrl">jdbc:mysql://localhost:3306/db_lab?useSSL=false</property>
 		<property name="user">root</property>
-	<!--<property name="password">962464RFCrfc!</property> -->
 		<property name="password">962464</property>
 		<property name="initialPoolSize">5</property>
 		<property name="checkoutTimeout">1500</property>

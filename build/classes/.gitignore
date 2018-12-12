@@ -16,3 +16,5 @@
 /org/
 /services/
 /utils/
+/Singleton.class
+/SingleObject.class

@@ -62,12 +62,15 @@ public class ShowFileDetails extends HttpServlet {
 			LinkedList<CommentFile> comments = dao.getItemAsPageByFileId(id,
 					page);
 			// 从缓存中获取评论
+
+			long itemCount = dao.getItemCount(id);
+
 			getCommentsFormCache(comments, id);
 			request.setAttribute("file", sharedResource);
 			request.setAttribute("comments", comments);
 			request.setAttribute("page", Long.parseLong(page));
 			request.setAttribute("pageSize", StaticDataUtil.PAGE_COMMENT_SIZE);
-			request.setAttribute("itemCount", dao.getItemCount(id));
+			request.setAttribute("itemCount", itemCount);
 			request.getRequestDispatcher("show_file_details.jsp")
 					.forward(request, response);
 			dao.close();

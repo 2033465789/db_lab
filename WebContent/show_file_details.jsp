@@ -35,7 +35,7 @@
 	<div class="row">
 		<!-- 文件信息 -->
 		<div class="text-center">
-			<div data-file="${file.id}">
+			<div data-file="${file.sid}">
 				<div class="col-md-12 col-sm-12 margin-top-bottom-10px">
 					<span class="label label-file-name margin-top-bottom-10px">${ file.fileName}</span>
 				</div>
@@ -82,18 +82,18 @@
 			<c:if test="${itemCount/pageSize>0 }">
 				<ul class="pagination text-center">
 					<c:if test="${not empty page and page > 1}">
-						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${page-1}">上一页 </a></li>
+						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.sid}&page=${page-1}">上一页 </a></li>
 					</c:if>
 					<c:forEach var="i" begin="1" end="${itemCount/pageSize+1}">
 						<c:if test="${page == i}">
 							<li class="active"><a>${i}</a></li>
 						</c:if>
 						<c:if test="${page !=i}">
-							<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${i}">${i}</a></li>
+							<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.sid}&page=${i}">${i}</a></li>
 						</c:if>
 					</c:forEach>
-					<c:if test="${page <= itemCount/pageSize">
-						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.id}&page=${page+1}">下一页 </a></li>
+					<c:if test="${page <= itemCount/pageSize}">
+						<li><a href="<%=contextPath%>/ShowFileDetails?id=${file.sid}&page=${page+1}">下一页 </a></li>
 					</c:if>
 				</ul>
 			</c:if>
