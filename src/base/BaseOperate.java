@@ -19,24 +19,32 @@ public class BaseOperate extends HttpServlet {
 	}
 
 	@Override
-	protected void service(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void service(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		RequestUtil requestUtil = new RequestUtil(request);
 		if (!requestUtil.isOnline()) {
 			response.getWriter().write(StaticDataUtil.OFFLINE);
 			return;
 		}
-
+		if (requestUtil.getUser() == null) {
+			response.getWriter().append("别搞事情！！");
+			return;
+		}
 		// 获取参数中的方法
 		String method = request.getParameter("method");
 		// 获取要操作的Item的id
 		String id = request.getParameter("id");
+		if (id == null) {
+			response.getWriter().append(".....");
+			return;
+		}
 		try {
 			// 通过反射获取方法
-			Method m = getClass().getDeclaredMethod(method, String.class);
+			Method m = getClass().getDeclaredMethod(method, String.class,
+					String.class);
 			// 执行方法，并确定操作是否成功
-			boolean res = (boolean) m.invoke(this, id);
-
+			boolean res = (boolean) m.invoke(this, id,
+					requestUtil.getUser().getUid());
 			// 返回响应数据
 			if (res) {
 				response.getWriter().append("success");

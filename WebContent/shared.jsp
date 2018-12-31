@@ -43,13 +43,12 @@
 				<tbody>
 					<c:forEach var="item" items="${allShared}">
 						<tr>
-							<td>${item.id}</td>
+							<td>${item.sid}</td>
 							<td>${item.fileName}</td>
 							<td>${item.uploadTime}</td>
 							<td>${item.fileType}</td>
-							<td><button type="button" class="btn btn-danger "
-									onclick="deleteShared('${item.id}')">删除</button></td>
-							<td><button type="button" class="btn btn-mybtn" onclick="alterShared('${item.id}')">修改</button></td>
+							<td><button type="button" class="btn btn-danger " onclick="deleteShared('${item.sid}')">删除</button></td>
+							<td><button type="button" class="btn btn-mybtn" onclick="alterShared('${item.sid}')">修改</button></td>
 						</tr>
 					</c:forEach>
 				</tbody>

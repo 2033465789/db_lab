@@ -58,9 +58,8 @@ public class deleteShared extends HttpServlet {
 				if (dao.deleteItem(user.getUid(), Long.parseLong(sid)))
 					request.getRequestDispatcher("/admin/AdministratorCenter")
 							.forward(request, response);
-				else
-				{
-					
+				else {
+
 				}
 			} catch (DBConnctionException e) {
 				e.printStackTrace();

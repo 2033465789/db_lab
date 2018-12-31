@@ -149,8 +149,4 @@ public class SharedDao extends BaseDao {
 		}
 		return false;
 	}
-
-	public static void main(String[] args) throws DBConnctionException {
-		System.out.println(new SharedDao().deleteItem("1", 3));
-	}
 }

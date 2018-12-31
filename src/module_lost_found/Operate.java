@@ -6,18 +6,18 @@ import javax.servlet.annotation.WebServlet;
 
 import base.BaseOperate;
 import base.BaseService;
+import daos.SharedDao;
 import exceptions.DBConnctionException;
 import javabeans.Good;
 import javabeans.SharedResource;
 import services.LostFindService;
-import services.SharedService;
 import utils.CacheUtil;
 
 @WebServlet("/Operate")
 public class Operate extends BaseOperate {
 	private static final long serialVersionUID = 1L;
 
-	public boolean delFound(String id) throws DBConnctionException {
+	public boolean delFound(String id, String uid) throws DBConnctionException {
 		LostFindService service = new LostFindService();
 		boolean flag = false;
 		int itemId = Integer.parseInt(id);
@@ -33,7 +33,6 @@ public class Operate extends BaseOperate {
 
 	private boolean delGoodFromCache(ArrayList<Good> goodsCache, int itemId) {
 		for (Good good : goodsCache) {
-			System.out.println(good.getId() + "   " + itemId);
 			if (good.getId() == itemId) {
 				return goodsCache.remove(good);
 			}
@@ -42,9 +41,8 @@ public class Operate extends BaseOperate {
 	}
 
 	private boolean delSharedFromCache(ArrayList<SharedResource> cache,
-			int itemId) {
+			long itemId) {
 		for (SharedResource item : cache) {
-			System.out.println(item.getSid() + "   " + itemId);
 			if (item.getSid() == itemId) {
 				return cache.remove(item);
 			}
@@ -52,24 +50,27 @@ public class Operate extends BaseOperate {
 		return false;
 	}
 
-	public boolean findLoster(String id) throws DBConnctionException {
+	public boolean findLoster(String id, String uid)
+			throws DBConnctionException {
 		LostFindService service = new LostFindService();
 		boolean flag = service.findLoster(Integer.parseInt(id));
 		service.close();
 		return flag;
 	}
 
-	public boolean delShared(String id) throws DBConnctionException {
-		SharedService service = new SharedService();
-		boolean flag = false;
-		int itemId = Integer.parseInt(id);
-		if (itemId <= BaseService.getTableMAXId("shared")) {
-			// flag = service.deleteItemById(itemId);
-		} else {
-			flag = delSharedFromCache(CacheUtil.getCacheTool().getSharedCache(),
-					itemId);
+	public boolean delShared(String id, String uid)
+			throws DBConnctionException {
+		SharedDao service = new SharedDao();
+		long itemId = Long.parseLong(id);
+		try {
+			if (itemId <= BaseService.getTableMAXId("shared")) {
+				return service.deleteItem(uid, itemId);
+			} else {
+				return delSharedFromCache(
+						CacheUtil.getCacheTool().getSharedCache(), itemId);
+			}
+		} finally {
+			service.close();
 		}
-		service.close();
-		return flag;
 	}
 }

@@ -83,6 +83,7 @@ public class MyFilter implements Filter {
 		if (strTool.JspRequest(name)) {
 			name += ".jsp";
 			request.getRequestDispatcher(name).forward(request, response);
+			return;
 		}
 		chain.doFilter(request, response);
 	}
