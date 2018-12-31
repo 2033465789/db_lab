@@ -4,7 +4,7 @@
 * 前端使用bootstrap，js,及jquery
 * 后端为Java,MySql
 ***
-详情请可以参考[PiaoPiao]（http://piaopiao.site:8080）
+详情请可以参考[PiaoPiao](http://piaopiao.site:8080)
 
 
 
